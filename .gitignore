@@ -1,4 +1,6 @@
 Release/*
 Debug/*
+GccUnixR/*
 *.swp
+*.un~
 
