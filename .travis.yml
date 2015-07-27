@@ -2,6 +2,12 @@ language: c
 compiler:
   - gcc
 
+install:
+  - git clone git://github.com/JWasm/JWasm-regressions.git Regress
+
 script:
   - make -s -f GccUnix.mak > /dev/null
+  - export PATH=${TRAVIS_BUILD_DIR}/GccUnixR:${PATH}
+  - cd Regress
+  - ./test-linux.sh
 
