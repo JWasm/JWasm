@@ -484,7 +484,7 @@ static ret_code DoFixup( struct dsym *curr, struct calc_param *cp )
                 /* check if symbol's segment name contains a '$'.
                  * If yes, search the segment without suffix.
                  */
-                if ( tmp = strchr( seg->sym.name, '$' ) ) {
+                if ( (tmp = strchr( seg->sym.name, '$' )) != NULL ) {
                     int namlen = tmp - seg->sym.name;
                     struct dsym *segfirst;
                     for( segfirst = SymTables[TAB_SEG].head; segfirst; segfirst = segfirst->next ) {
@@ -1011,7 +1011,7 @@ static void pe_emit_import_data( void )
             }
 
             /* avoid . in IDs */
-            if ( pdot = strchr( p->name, '.') )
+            if ( (pdot = strchr( p->name, '.')) != NULL )
                 *pdot = '_';
 
             /* import directory entry */
@@ -1432,13 +1432,13 @@ static void pe_set_values( struct calc_param *cp )
 #endif
 
     /* set export directory data dir value */
-    if ( curr = (struct dsym *)SymSearch( edataname ) ) {
+    if ( (curr = (struct dsym *)SymSearch( edataname )) != NULL ) {
         datadir[IMAGE_DIRECTORY_ENTRY_EXPORT].VirtualAddress = curr->e.seginfo->start_offset;
         datadir[IMAGE_DIRECTORY_ENTRY_EXPORT].Size = curr->sym.max_offset;
     }
 
     /* set import directory and IAT data dir value */
-    if ( curr = (struct dsym *)SymSearch( ".idata$" IMPDIRSUF ) ) {
+    if ( (curr = (struct dsym *)SymSearch( ".idata$" IMPDIRSUF )) != NULL ) {
         struct dsym *idata_null;
         struct dsym *idata_iat;
         uint_32 size;
@@ -1452,13 +1452,13 @@ static void pe_set_values( struct calc_param *cp )
     }
 
     /* set resource directory data dir value */
-    if ( curr = (struct dsym *)SymSearch(".rsrc") ) {
+    if ( (curr = (struct dsym *)SymSearch(".rsrc")) != NULL ) {
         datadir[IMAGE_DIRECTORY_ENTRY_RESOURCE].VirtualAddress = curr->e.seginfo->start_offset;
         datadir[IMAGE_DIRECTORY_ENTRY_RESOURCE].Size = curr->sym.max_offset;
     }
 
     /* set relocation data dir value */
-    if ( curr = (struct dsym *)SymSearch(".reloc") ) {
+    if ( (curr = (struct dsym *)SymSearch(".reloc")) != NULL ) {
         datadir[IMAGE_DIRECTORY_ENTRY_BASERELOC].VirtualAddress = curr->e.seginfo->start_offset;
         datadir[IMAGE_DIRECTORY_ENTRY_BASERELOC].Size = curr->sym.max_offset;
     }
@@ -1466,14 +1466,14 @@ static void pe_set_values( struct calc_param *cp )
     /* fixme: TLS entry is not written because there exists a segment .tls, but
      * because a _tls_used symbol is found ( type: IMAGE_THREAD_DIRECTORY )
      */
-    if ( curr = (struct dsym *)SymSearch(".tls") ) {
+    if ( (curr = (struct dsym *)SymSearch(".tls")) != NULL ) {
         datadir[IMAGE_DIRECTORY_ENTRY_TLS].VirtualAddress = curr->e.seginfo->start_offset;
         datadir[IMAGE_DIRECTORY_ENTRY_TLS].Size = curr->sym.max_offset;
     }
 
 #if AMD64_SUPPORT
     if ( ModuleInfo.defOfssize == USE64 ) {
-        if ( curr = (struct dsym *)SymSearch( ".pdata" ) ) {
+        if ( (curr = (struct dsym *)SymSearch( ".pdata" )) != NULL ) {
             datadir[IMAGE_DIRECTORY_ENTRY_EXCEPTION].VirtualAddress = curr->e.seginfo->start_offset;
             datadir[IMAGE_DIRECTORY_ENTRY_EXCEPTION].Size = curr->sym.max_offset;
         }

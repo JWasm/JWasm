@@ -257,7 +257,7 @@ ret_code IncBinDirective( int i, struct asm_tok tokenarray[] )
     DebugMsg1(("IncBinDirective: filename=%s, offset=%" I32_SPEC "u, size=%" I32_SPEC "u\n", StringBufferEnd, fileoffset, sizemax ));
 
     /* try to open the file */
-    if ( file = SearchFile( StringBufferEnd, FALSE ) ) {
+    if ( (file = SearchFile( StringBufferEnd, FALSE )) != NULL ) {
         /* transfer file content to the current segment. */
         if ( fileoffset )
             fseek( file, fileoffset, SEEK_SET );  /* fixme: use fseek64() */

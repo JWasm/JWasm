@@ -1053,7 +1053,7 @@ void cv_write_debug_tables( struct dsym *symbols, struct dsym *types, void *pv )
     /* scan symbol table for types */
 
     sym = NULL;
-    while ( sym = SymEnum( sym, &i ) ) {
+    while ( (sym = SymEnum( sym, &i )) != NULL ) {
         if ( sym->state == SYM_TYPE && sym->typekind != TYPE_TYPEDEF && sym->cvtyperef == 0 ) {
             /**/myassert( cv.currtype >= 0x1000 ); /* check for overflow */
             cv_write_type( &cv, sym );
@@ -1063,7 +1063,7 @@ void cv_write_debug_tables( struct dsym *symbols, struct dsym *types, void *pv )
     /* scan symbol table for SYM_TYPE, SYM_INTERNAL */
 
     sym = NULL;
-    while ( sym = SymEnum( sym, &i ) ) {
+    while ( (sym = SymEnum( sym, &i )) != NULL ) {
         switch ( sym->state ) {
         case SYM_TYPE: /* may create an S_UDT entry in the symbols table */
             if ( Options.debug_ext < CVEX_NORMAL ) /* v2.10: no UDTs for -Zi0 and -Zi1 */

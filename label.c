@@ -267,7 +267,7 @@ ret_code LabelDirective( int i, struct asm_tok tokenarray[] )
         LstWrite( LSTTYPE_LABEL, 0, NULL );
 
     /* v2.08: if label is a DATA label, set total_size and total_length */
-    if ( sym = CreateLabel( tokenarray[0].string_ptr, ti.mem_type, &ti, FALSE ) ) {
+    if ( (sym = CreateLabel( tokenarray[0].string_ptr, ti.mem_type, &ti, FALSE )) != NULL ) {
         DebugMsg1(("LabelDirective(%s): label created, memtype=%Xh size=%u\n", sym->name, sym->mem_type, ti.size ));
         /* sym->isdata must be 0, else the LABEL directive was generated within data_item()
          * and fields total_size & total_length must not be modified then!

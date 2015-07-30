@@ -101,13 +101,13 @@ struct asym *SearchNameInStruct( const struct asym *tstruct, const char *name, u
         if ( *( fl->sym.name ) == NULLC ) {
             /* there are 2 cases: an anonymous inline struct ... */
             if ( fl->sym.state == SYM_TYPE ) {
-                if ( sym = SearchNameInStruct( &fl->sym, name, poffset, level ) ) {
+                if ( (sym = SearchNameInStruct( &fl->sym, name, poffset, level )) != NULL ) {
                     *poffset += fl->sym.offset;
                     break;
                 }
             /* or an anonymous structured field */
             } else if ( fl->sym.mem_type == MT_TYPE ) {
-                if ( sym = SearchNameInStruct( fl->sym.type, name, poffset, level ) ) {
+                if ( (sym = SearchNameInStruct( fl->sym.type, name, poffset, level )) != NULL ) {
                     *poffset += fl->sym.offset;
                     break;
                 }

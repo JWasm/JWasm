@@ -1532,7 +1532,7 @@ static void omf_write_header_dbgcv( void )
     AttachData( &obj, "\001CV", 3 );
     omf_write_record( &obj );
     for ( i = 0; i < DBGS_MAX; i++ ) {
-        if ( SymDebSeg[i] = (struct dsym *)CreateIntSegment( SymDebParm[i].name, SymDebParm[i].cname, 0, USE32, TRUE ) ) {
+        if ( (SymDebSeg[i] = (struct dsym *)CreateIntSegment( SymDebParm[i].name, SymDebParm[i].cname, 0, USE32, TRUE )) != NULL ) {
             SymDebSeg[i]->e.seginfo->force32 = TRUE; /* without this a 32-bit segdef is emitted only if segsize > 64kB */
             SymDebSeg[i]->e.seginfo->flushfunc = omf_cv_flushfunc;
         }

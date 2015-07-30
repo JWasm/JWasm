@@ -532,7 +532,7 @@ static void CmdlParamsInit( int pass )
         add_cmdline_tmacros();
         add_incpaths();
         if ( Options.ignore_include == FALSE )
-            if ( env = getenv( "INCLUDE" ) )
+            if ( (env = getenv( "INCLUDE" )) != NULL )
                 AddStringToIncludePath( env );
     }
     DebugMsg(("CmdlParamsInit exit\n"));
@@ -1001,9 +1001,9 @@ static int OnePass( void )
             DebugMsg1(("OnePass(%u) cur/nxt=%X/%X src=%X.%u mlvl=%u: >%s<\n", Parse_Pass+1, LineStoreCurr, LineStoreCurr->next, LineStoreCurr->srcfile, LineStoreCurr->lineno, MacroLevel, LineStoreCurr->line ));
             ModuleInfo.CurrComment = NULL; /* v2.08: added (var is never reset because GetTextLine() isn't called) */
 #if USELSLINE
-            if ( Token_Count = Tokenize( LineStoreCurr->line, 0, ModuleInfo.tokenarray, TOK_DEFAULT ) )
+            if ( (Token_Count = Tokenize( LineStoreCurr->line, 0, ModuleInfo.tokenarray, TOK_DEFAULT )) != 0 )
 #else
-            if ( Token_Count = Tokenize( CurrSource, 0, ModuleInfo.tokenarray, TOK_DEFAULT ) )
+            if ( (Token_Count = Tokenize( CurrSource, 0, ModuleInfo.tokenarray, TOK_DEFAULT )) != 0 )
 #endif
                 ParseLine( ModuleInfo.tokenarray );
             LineStoreCurr = LineStoreCurr->next;

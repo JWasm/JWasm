@@ -637,7 +637,7 @@ static int watc_param( struct dsym const *proc, int index, struct dsym *param, b
         if ( reg[1] != NULL ) {
             char buffer[128];
             short sreg;
-            if ( sreg = GetSegmentPart( opnd, buffer, paramvalue ) )
+            if ( (sreg = GetSegmentPart( opnd, buffer, paramvalue )) != 0 )
                 AddLineQueueX( "%r %s, %r", T_MOV, reg[0],  sreg );
             else
                 AddLineQueueX( "%r %s, %s", T_MOV, reg[0],  buffer );

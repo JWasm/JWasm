@@ -2922,7 +2922,7 @@ ret_code ParseLine( struct asm_tok tokenarray[] )
             return( data_dir( i, tokenarray, NULL ) );
         case T_ID:
             DebugMsg1(("ParseLine: T_ID >%s<\n", tokenarray[i].string_ptr ));
-            if( sym = IsType( tokenarray[i].string_ptr ) ) {
+            if( (sym = IsType( tokenarray[i].string_ptr )) != NULL ) {
                 return( data_dir( i, tokenarray, sym ) );
             }
             break;

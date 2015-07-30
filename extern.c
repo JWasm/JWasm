@@ -918,7 +918,7 @@ ret_code PublicDirective( int i, struct asm_tok tokenarray[] )
         sym = SymSearch( token );
         if ( Parse_Pass == PASS_1 ) {
             if ( sym == NULL ) {
-                if ( sym = SymCreate( token ) ) {
+                if ( (sym = SymCreate( token )) != NULL ) {
                     sym_add_table( &SymTables[TAB_UNDEF], (struct dsym *)sym );
                     DebugMsg1(("PublicDirective(%s): new symbol\n", sym->name ));
                 } else

@@ -437,7 +437,7 @@ int RunMacro( struct dsym *macro, int idx, struct asm_tok tokenarray[], char *ou
                      * text macros are expanded only selectively
                      */
                     if ( tokenarray[idx].token == T_ID ) {
-                        if ( sym = SymSearch( tokenarray[idx].string_ptr ) ) {
+                        if ( (sym = SymSearch( tokenarray[idx].string_ptr )) != NULL ) {
                             if ( sym->state == SYM_MACRO && sym->isdefined == TRUE &&
                                 sym->isfunc == TRUE && tokenarray[idx+1].token == T_OP_BRACKET ) {
                                 bool is_exitm2;
