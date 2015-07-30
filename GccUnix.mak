@@ -21,7 +21,8 @@ endif
 
 c_flags =-D__UNIX__ $(extra_c_flags)
 
-CC = gcc
+# CC=clang allowed
+CC ?= gcc
 
 .SUFFIXES:
 .SUFFIXES: .c .o
