@@ -1,6 +1,19 @@
+os:
+  - linux
+  - osx
+
 language: c
+
 compiler:
   - gcc
+  - clang
+
+matrix:
+  exclude:
+      - os: osx
+        compiler: gcc
+
+sudo: false
 
 install:
   - git clone git://github.com/JWasm/JWasm-regressions.git Regress
