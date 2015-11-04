@@ -54,7 +54,7 @@ typedef   signed long   int_64;
 #else
 typedef unsigned long      uint_32;
 typedef   signed long      int_32;
-#if defined(LLONG_MAX) || defined(__GNUC__)
+#if defined(LLONG_MAX) || defined(__GNUC__) || defined(__TINYC__)
 typedef unsigned long long uint_64;
 typedef   signed long long int_64;
 #else
