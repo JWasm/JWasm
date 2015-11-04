@@ -41,7 +41,7 @@ $(OUTD):
 
 $(OUTD)/$(TARGET1) : $(OUTD)/main.o $(proj_obj)
 ifeq ($(DEBUG),0)
-	$(CC) $(OUTD)/main.o $(proj_obj) -s -o $@ -Wl,-Map,$(OUTD)/$(TARGET1).map
+	$(CC) $(OUTD)/main.o $(proj_obj) -s -o $@
 else
 	$(CC) $(OUTD)/main.o $(proj_obj) -o $@ -Wl,-Map,$(OUTD)/$(TARGET1).map
 endif
@@ -55,7 +55,7 @@ $(OUTD)/reswords.o: reswords.c H/instruct.h H/special.h H/directve.h H/opndcls.h
 ######
 
 clean:
-	rm $(OUTD)/$(TARGET1)
-	rm $(OUTD)/*.o
-	rm $(OUTD)/*.map
+	rm -f $(OUTD)/$(TARGET1)
+	rm -f $(OUTD)/*.o
+	rm -f $(OUTD)/*.map
 
