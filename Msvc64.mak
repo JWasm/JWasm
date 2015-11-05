@@ -43,11 +43,11 @@ OUTD=MSVC64R
 
 inc_dirs  = -IH -I"$(VCDIR)\include"
 
-linker = $(VCBIN)\link.exe
-lib = $(VCBIN)\lib.exe
+linker = "$(VCBIN)\link.exe"
+lib = "$(VCBIN)\lib.exe"
 
 !if $(DEBUG)
-extra_c_flags = -Zd -Od -DDEBUG_OUT -FAa -Fa$* 
+extra_c_flags = -Zd -Od -DDEBUG_OUT -FAa -Fa$*
 !else
 extra_c_flags = -O2 -Ox -GS- -DNDEBUG
 #extra_c_flags = -Ox -DNDEBUG
@@ -69,7 +69,7 @@ LOPTD = /debug
 
 lflagsw = $(LOPTD) /SUBSYSTEM:CONSOLE $(LOPT) /map:$^*.map
 
-CC=$(VCBIN)\cl.exe -c -nologo $(inc_dirs) $(c_flags)
+CC="$(VCBIN)\cl.exe" -c -nologo $(inc_dirs) $(c_flags)
 
 .c{$(OUTD)}.obj:
 	@$(CC) -Fo$* $<
