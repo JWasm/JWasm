@@ -1488,7 +1488,7 @@ static ret_code highword_op( int oper, struct expr *opnd1, struct expr *opnd2, s
         //opnd1->mem_type = MT_WORD; /* v2.05 */
         opnd1->mem_type = MT_EMPTY;
     }
-    opnd1->value = opnd1->value >> 16;
+    opnd1->llvalue = (opnd1->value >> 16) & 0xffff;
     return( NOT_ERROR );
 }
 
