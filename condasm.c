@@ -552,6 +552,10 @@ ret_code ErrorDirective( int i, struct asm_tok tokenarray[] )
             sym = NULL;
 
         /* Masm "usually" ignores the optional errtxt! */
+        if( erridx ) {
+            strcat(StringBufferEnd, " : ");
+            strcat(StringBufferEnd, tokenarray[erridx].string_ptr );
+        }
         if( direct == T_DOT_ERRDEF && sym != NULL )
             EmitErr( FORCED_DEF, StringBufferEnd );
         else if( direct == T_DOT_ERRNDEF && sym == NULL )
