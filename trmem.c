@@ -32,9 +32,9 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+//#include <string.h>
 #include <ctype.h>
-
+#include <errno.h>
 #if defined( _M_IX86 ) && defined(__WATCOMC__)
 #include <i86.h>
 #endif
