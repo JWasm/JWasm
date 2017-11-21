@@ -21,4 +21,5 @@ add_definitions(-D__UNIX__ -DNDEBUG -DDEBUG_OUT)
 endif()
 
 FILE(GLOB all_c_files *.c)
+LIST(REMOVE_ITEM all_c_files ${CMAKE_CURRENT_SOURCE_DIR}/trmem.c)
 add_executable(jwasm ${all_c_files})
