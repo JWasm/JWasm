@@ -90,10 +90,10 @@ $(OUTD)\$(name).exe : $(OUTD)/main.obj $(OUTD)/$(name).lib
 !if $(MSLINK)
 	@$(linker) @<<
 $(lflagsw) $(OUTD)/main.obj $(OUTD)/$(name).lib
-/LIBPATH:"$(VCDIR)/Lib/amd64" /LIBPATH:"$(WINKIT)/Lib/$(WKITVER)/ucrt/x64" "$(W64LIB)/kernel32.lib" /OUT:$@
+/LIBPATH:"$(VCDIR)/Lib/amd64" /LIBPATH:"$(WINKIT)/Lib/$(WKITVER)/ucrt/x64" /LIBPATH:"$(W64LIB)" "$(W64LIB)/kernel32.lib" /OUT:$@
 <<
 !else
-	@jwlink.exe format windows pe file $(OUTD)/main.obj name $@ lib $(OUTD)/$(name).lib libpath "$(VCDIR)/Lib/amd64" libpath "$(WINKIT)/Lib/$(WKITVER)/ucrt/x64" lib "$(W64LIB)/kernel32.lib" op start=mainCRTStartup, norelocs, eliminate, map=$(OUTD)/$(name).map
+	@jwlink.exe format windows pe file $(OUTD)/main.obj name $@ lib $(OUTD)/$(name).lib libpath "$(VCDIR)/Lib/amd64" libpath "$(WINKIT)/Lib/$(WKITVER)/ucrt/x64" libpath "$(W64LIB)" lib "$(W64LIB)/kernel32.lib" op start=mainCRTStartup, norelocs, eliminate, map=$(OUTD)/$(name).map
 !endif
 
 $(OUTD)\$(name).lib : $(proj_obj)
