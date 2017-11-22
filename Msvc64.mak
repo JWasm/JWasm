@@ -17,6 +17,10 @@ name = jwasm
 !ifndef VCDIR
 VCDIR  = d:\msvc10
 !endif
+!ifndef WINKIT
+WINKIT = c:\Program Files (x86)\Windows Kits\10
+WKITVER = 10.0.10240.0
+!endif
 !ifndef W64LIB
 W64LIB = \WinInc\Lib64
 !endif
@@ -41,7 +45,7 @@ OUTD=MSVC64R
 !endif
 !endif
 
-inc_dirs  = -IH -I"$(VCDIR)\include"
+inc_dirs  = -IH -I"$(VCDIR)\include" -I"$(WINKIT)\Include\$(WKITVER)\ucrt"
 
 linker = "$(VCBIN)\link.exe"
 lib = "$(VCBIN)\lib.exe"
@@ -86,10 +90,10 @@ $(OUTD)\$(name).exe : $(OUTD)/main.obj $(OUTD)/$(name).lib
 !if $(MSLINK)
 	@$(linker) @<<
 $(lflagsw) $(OUTD)/main.obj $(OUTD)/$(name).lib
-/LIBPATH:"$(VCDIR)/Lib/amd64" "$(W64LIB)/kernel32.lib" /OUT:$@
+/LIBPATH:"$(VCDIR)/Lib/amd64" /LIBPATH:"$(WINKIT)/Lib/$(WKITVER)/ucrt/x64" "$(W64LIB)/kernel32.lib" /OUT:$@
 <<
 !else
-	@jwlink.exe format windows pe file $(OUTD)/main.obj name $@ lib $(OUTD)/$(name).lib libpath "$(VCDIR)/Lib/amd64" lib "$(W64LIB)/kernel32.lib" op start=mainCRTStartup, norelocs, eliminate, map=$(OUTD)/$(name).map
+	@jwlink.exe format windows pe file $(OUTD)/main.obj name $@ lib $(OUTD)/$(name).lib libpath "$(VCDIR)/Lib/amd64" libpath "$(WINKIT)/Lib/$(WKITVER)/ucrt/x64" lib "$(W64LIB)/kernel32.lib" op start=mainCRTStartup, norelocs, eliminate, map=$(OUTD)/$(name).map
 !endif
 
 $(OUTD)\$(name).lib : $(proj_obj)
