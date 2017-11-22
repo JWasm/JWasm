@@ -319,7 +319,7 @@ static int ms64_param( struct dsym const *proc, int index, struct dsym *param, b
 
             /* v2.06: support 64-bit constants for params > 4 */
             if ( psize == 8 &&
-                ( opnd->value64 > LONG_MAX || opnd->value64 < LONG_MIN ) ) {
+                ( opnd->value64 > INT32_MAX || opnd->value64 < INT32_MIN ) ) {
                 AddLineQueueX( " mov %r ptr [%r+%u], %r ( %s )", T_DWORD, T_RSP, NUMQUAL index*8, T_LOW32, paramvalue );
                 AddLineQueueX( " mov %r ptr [%r+%u], %r ( %s )", T_DWORD, T_RSP, NUMQUAL index*8+4, T_HIGH32, paramvalue );
 
