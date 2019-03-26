@@ -33,7 +33,7 @@ environment:
 # Build scripts
 build_script:
   - appveyor AddMessage "Compiling JWasm (%builder%)"
-  - cmd: if %builder% == vs2015_64 ( call "%VSVARSALLPATH2015%" x64 && set "VCDIR=%VCINSTALLDIR%" && set "W64LIB=%W64LIB2015" && nmake /F Msvc64.mak)
-  - cmd: if %builder% == vs2017_64 ( call "%VSVARSALLPATH2017%" x64 && set "VCDIR=%VCINSTALLDIR%" && set "W64LIB=%W64LIB2017" && nmake /F Msvc64.mak )
+  - cmd: if %builder% == vs2015_64 ( call "%VSVARSALLPATH2015%" x64 && set "VCDIR=%VCINSTALLDIR%" && set "W64LIB=%W64LIB2015%" && nmake /F Msvc64.mak)
+  - cmd: if %builder% == vs2017_64 ( call "%VSVARSALLPATH2017%" x64 && set "VCDIR=%VCINSTALLDIR%" && set "W64LIB=%W64LIB2017%" && nmake /F Msvc64.mak )
 
 test: off
