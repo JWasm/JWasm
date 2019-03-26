@@ -24,7 +24,7 @@ environment:
 
   matrix:
     # VS2015 64
-    - builder: vs2017564
+    - builder: vs2015_64
       BUILD_DIR: build
     # VS2017 64
     - builder: vs2017_64
