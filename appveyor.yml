@@ -1,0 +1,15 @@
+version: 1.0.{build}
+image: Visual Studio 2015
+install:
+- cmd: >-
+    call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" amd64
+    set VCDIR=%VCINSTALLDIR%
+    set W64LIB=C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Lib\x64
+
+build_script:
+- ps: >-
+    dir "C:\Program Files (x86)\Microsoft SDKs\Windows"
+    dir $env:W64LIB
+    nmake /F Msvc64.mak 2> $null
+
+test: off
