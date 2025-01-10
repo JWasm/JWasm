@@ -1,15 +1,39 @@
-version: 1.0.{build}
-image: Visual Studio 2015
-install:
-- cmd: >-
-    call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" amd64
-    set VCDIR=%VCINSTALLDIR%
-    set W64LIB=C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Lib\x64
+# Version format
+version: git-{build}
 
+# Skip Github tags
+skip_tags: true
+
+# VM Template
+image: Visual Studio 2017
+
+# Clone depth
+clone_depth: 1
+
+# Branches to clone
+branches:
+  only:
+    - master
+
+# Environment variables
+environment:
+  VSVARSALLPATH2015: 'C:\Program Files (x86)\Microsoft Visual Studio\2015\Community\VC\Auxiliary\Build\vcvarsall.bat'
+  VSVARSALLPATH2017: 'C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat'
+  W64LIB2015: 'C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Lib\x64'
+  W64LIB2017: 'C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Lib\x64'
+
+  matrix:
+    # VS2015 64
+    - builder: vs2015_64
+      BUILD_DIR: build
+    # VS2017 64
+    - builder: vs2017_64
+      BUILD_DIR: build
+
+# Build scripts
 build_script:
-- ps: >-
-    dir "C:\Program Files (x86)\Microsoft SDKs\Windows"
-    dir $env:W64LIB
-    nmake /F Msvc64.mak 2> $null
+  - appveyor AddMessage "Compiling JWasm (%builder%)"
+  - cmd: if %builder% == vs2015_64 ( call "%VSVARSALLPATH2015%" x64 && set "VCDIR=%VCINSTALLDIR%" && set "W64LIB=%W64LIB2015%" && nmake /F Msvc64.mak)
+  - cmd: if %builder% == vs2017_64 ( call "%VSVARSALLPATH2017%" x64 && set "VCDIR=%VCINSTALLDIR%" && set "W64LIB=%W64LIB2017%" && nmake /F Msvc64.mak )
 
 test: off
